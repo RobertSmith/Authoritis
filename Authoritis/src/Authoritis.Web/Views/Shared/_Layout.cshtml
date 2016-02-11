@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Authoritis.Web</title>
+        <title>@ViewData["Title"] - Authoritis</title>
 
         <environment names="Development">
             <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,7 +17,8 @@
         </environment>
         @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
     </head>
-    <body>
+<body>
+    <header>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -27,43 +28,147 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Authoritis.Web</a>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">Authoritis</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li @{ if (ViewBag.Tab == "Library") { <text> class="active" </text>  } }>
+                                <a href='/Library'><i class='fa fa-align-left fa-rotate-270'></i> Library</a>
+                            </li>
+                            <li @{ if (ViewBag.Tab == "Desk") { <text> class="active" </text>  } }>
+                                <a href='/Desk'><i class='fa fa-inbox'></i> Desk</a>
+                            </li>
+                            <li class='disabled'>
+                                <a href='#'><i class='fa fa-comment'></i> Forums</a>
+                            </li>
+                            <li class='disabled'>
+                                <a href='#'><i class='fa fa-shopping-cart'></i> Shop</a>
+                            </li>
+                        }
                     </ul>
+                    <div class="col-md-4 JustifyCenter">
+                        <form class="navbar-form navbar-left" role="search" action="/Search" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="searchText" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+                    </div>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2016 - Authoritis.Web</p>
-            </footer>
+    </header>
+<div class="container body-content">
+    <hr/>
+    @RenderBody()
+    <hr/>
+    <footer>
+        <legend>&nbsp;</legend>
+        <div class="row">
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-2">
+                <p class="text-muted">Learn More</p>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#">
+                            <small>How it works</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>Feature Tour</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>About Us</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-2">
+                <p class="text-muted">Support</p>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#">
+                            <small>FAQ</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>Contact Us</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-2">
+                <p class="text-muted">Legal</p>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#">
+                            <small>Privacy Policy</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>Terms of Use</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+            <div class="col-md-2">
+                <p class="text-muted">Follow Us</p>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#">
+                            <small>Facebook</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>Twitter</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <small>Blog</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <div class="row text-center text-muted">
+            &copy; @DateTime.Now.Year - Thumpter, LLC
+        </div>
+        <legend></legend>
+    </footer>
+</div>
 
-        <environment names="Development">
-            <script src="~/lib/jquery/dist/jquery.js"></script>
-            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="~/js/site.js" asp-append-version="true"></script>
-        </environment>
-        <environment names="Staging,Production">
-            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
-                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                    asp-fallback-test="window.jQuery">
-            </script>
-            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
-                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-            </script>
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
+<environment names="Development">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery">
+            
+    </script>
+    <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+            asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+            asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            
+    </script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+</environment>
 
-        @RenderSection("scripts", required: false)
-    </body>
+@RenderSection("scripts", required: false)
+</body>
 </html>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -89,18 +85,39 @@ namespace Authoritis.Web
                              .Database.Migrate();
                     }
                 }
+                // ReSharper disable once EmptyGeneralCatchClause
                 catch { }
             }
 
             app.UseIISPlatformHandler(options => options.AuthenticationDescriptions.Clear());
-
             app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
-
             app.UseIdentity();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+            app.UseFacebookAuthentication(options =>
+            {
+                options.AppId = Configuration["Authentication:Facebook:AppId"];
+                options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
+            app.UseTwitterAuthentication(options =>
+            {
+                options.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+                options.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+            });
+
+//            app.UseMicrosoftAccountAuthentication(options =>
+//            {
+//                options.ClientId = Configuration["Authentication:MicrosoftAccount:ClientId"];
+//                options.ClientSecret = Configuration["Authentication:MicrosoftAccount:ClientSecret"];
+//            });
+
+            app.UseGoogleAuthentication(options =>
+            {
+                options.ClientId = Configuration["Authentication:Google:ClientId"];
+                options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
 
             app.UseMvc(routes =>
             {
