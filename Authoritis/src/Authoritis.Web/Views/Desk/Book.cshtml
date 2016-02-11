@@ -1,5 +1,6 @@
 ﻿@using System.Threading.Tasks
 @using Microsoft.AspNet.Mvc.Rendering
+@using Microsoft.Data.Entity.Metadata.Internal
 @model Authoritis.Web.ViewModels.Desk.BookViewModel
 
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
@@ -10,7 +11,7 @@
     var genreList = ViewBag.Genres as List<GenreModel>;
     var languages = ViewBag.Languages as List<LanguageModel>;
 
-    List<SelectListItem> languageList = languages.Select(language => new SelectListItem { Text = language.Name, Value = language.Key, Selected = language.Key == Model.Book.Language.Key }).ToList();
+    List<SelectListItem> languageList = languages.Select(language => new SelectListItem { Text = language.Name, Value = language.Key, Selected = language.Key == ((LanguageModel)Model.Book.Language).Key }).ToList();
 
     object disabledAttributesPublic = new { disabled = "disabled", @readonly = "readonly" };
     object disabledAttributesComplete = new { disabled = "disabled", @readonly = "readonly" };
@@ -69,7 +70,7 @@
                         {
                             if (genre.IsFiction)
                             {
-                                if (Model.Book.Genre != null && genre.Key == Model.Book.Genre.Key)
+                                if (Model.Book.Genre != null && genre.Key == ((GenreModel)Model.Book.Genre).Key)
                                 {
                                     <option value="@genre.Key" selected="selected">(fiction) @genre.Name</option>
                                 }
@@ -80,7 +81,7 @@
                             }
                             else
                             {
-                                if (Model.Book.Genre != null && genre.Key == Model.Book.Genre.Key)
+                                if (Model.Book.Genre != null && genre.Key == ((GenreModel)Model.Book.Genre).Key)
                                 {
                                     <option value="@genre.Key" selected="selected">@genre.Name</option>
                                 }
@@ -95,7 +96,7 @@
             </div>
             <div class="form-group">
                 <label for="Language_Key">Language <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title data-original-title="The language you will write your book in, also sets the language of the text editor."></i></label><br />
-                @Html.DropDownListFor(m => m.Book.Language.Key, languageList, disabledLanguage)
+                @Html.DropDownListFor(m => ((LanguageModel)m.Book.Language).Key, languageList, disabledLanguage)
             </div>
         </div>
         <div class="col-md-6">
