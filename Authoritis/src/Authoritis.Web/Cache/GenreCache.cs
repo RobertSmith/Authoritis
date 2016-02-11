@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Authoritis.Web.Cache
@@ -39,7 +40,7 @@ namespace Authoritis.Web.Cache
         {
             //var genre = new Query.GenreQueries();
             //return genre.Genres;
-            return new object();
+            return new Dictionary<string, string>();
         }
     }
 }

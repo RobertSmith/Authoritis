@@ -2,13 +2,13 @@
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Authoritis.Web.Cache;
+using Authoritis.Web.Models;
+using Authoritis.Web.Services;
+using Authoritis.Web.ViewModels.Manage;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using Authoritis.Web.Models;
-using Authoritis.Web.Services;
-using Authoritis.Web.ViewModels.Manage;
 
 namespace Authoritis.Web.Controllers
 {
@@ -51,8 +51,8 @@ namespace Authoritis.Web.Controllers
                 : "";
 
             var user = await GetCurrentUserAsync();
-            ViewBag.User = user;
-            ViewBag.Languages = LanguagesCache.GetAll();
+            ViewData["User"] = user;
+            ViewData["Languages"] = LanguagesCache.GetAll();
 
             var model = new IndexViewModel
             {

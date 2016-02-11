@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Authoritis.Web", "src\Authoritis.Web\Authoritis.Web.xproj", "{7891D028-18F3-43EF-8409-8C7F3516098C}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Authoritis.Query.Interface", "..\Authoritis.Query.Interface\Authoritis.Query.Interface\Authoritis.Query.Interface.xproj", "{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +24,16 @@ Global
 		{7891D028-18F3-43EF-8409-8C7F3516098C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7891D028-18F3-43EF-8409-8C7F3516098C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7891D028-18F3-43EF-8409-8C7F3516098C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7891D028-18F3-43EF-8409-8C7F3516098C} = {25B7F21A-B58E-42D1-A010-703C21A8DE4D}
+		{0D0E4649-1F6F-4C8B-9B6C-0B9540FA700A} = {25B7F21A-B58E-42D1-A010-703C21A8DE4D}
 	EndGlobalSection
 EndGlobal
