@@ -1,7 +1,6 @@
 ﻿@using System.Threading.Tasks
 @using Microsoft.AspNet.Mvc.Rendering
-@using Microsoft.Data.Entity.Metadata.Internal
-@model Authoritis.Web.ViewModels.Desk.BookViewModel
+@model BookModel
 
 <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
@@ -11,18 +10,18 @@
     var genreList = ViewBag.Genres as List<GenreModel>;
     var languages = ViewBag.Languages as List<LanguageModel>;
 
-    List<SelectListItem> languageList = languages.Select(language => new SelectListItem { Text = language.Name, Value = language.Key, Selected = language.Key == ((LanguageModel)Model.Book.Language).Key }).ToList();
+    List<SelectListItem> languageList = languages.Select(language => new SelectListItem { Text = language.Name, Value = language.Key, Selected = language.Key == ((LanguageModel)Model.Language).Key }).ToList();
 
     object disabledAttributesPublic = new { disabled = "disabled", @readonly = "readonly" };
     object disabledAttributesComplete = new { disabled = "disabled", @readonly = "readonly" };
     object disabledLanguage = new { disabled = "disabled", @readonly = "readonly", @class = "form-control" };
 
-    if (!Model.Book.Published)
+    if (!Model.Published)
     {
         disabledAttributesPublic = new { };
     }
 
-    if (!Model.Book.Completed)
+    if (!Model.Completed)
     {
         disabledAttributesComplete = new { };
         disabledLanguage = new { @class = "form-control" };
@@ -45,32 +44,32 @@
 <div class="row">
     <fieldset>
         <div class="col-md-6">
-            @Html.HiddenFor(m => m.Book.Key)
+            @Html.HiddenFor(m => m.Key)
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="@Model.Book.Title" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } } />
+                <input type="text" class="form-control" id="title" name="title" value="@Model.Title" @{if (Model.Completed) { <text> disabled="disabled" </text>  } } />
             </div>
             <div class="form-group">
                 <label for="subTitle">Sub Title</label>
-                <input type="text" class="form-control" id="subTitle" name="subTitle" value="@Model.Book.SubTitle" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } } />
+                <input type="text" class="form-control" id="subTitle" name="subTitle" value="@Model.SubTitle" @{if (Model.Completed) { <text> disabled="disabled" </text>  } } />
             </div>
             <div class="form-group">
                 <label for="seriesTitle">Series Title</label>
-                <input type="text" class="form-control" id="seriesTitle" name="seriesTitle" value="@Model.Book.SeriesTitle" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } } />
+                <input type="text" class="form-control" id="seriesTitle" name="seriesTitle" value="@Model.SeriesTitle" @{if (Model.Completed) { <text> disabled="disabled" </text>  } } />
             </div>
             <div class="form-group">
                 <label for="seriesVolume">Series Volume</label>
-                <input type="text" class="form-control" id="seriesVolume" name="seriesVolume" value="@Model.Book.SeriesVolume" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } } />
+                <input type="text" class="form-control" id="seriesVolume" name="seriesVolume" value="@Model.SeriesVolume" @{if (Model.Completed) { <text> disabled="disabled" </text>  } } />
             </div>
             <div class="form-group">
                 <label for="genreKey">Genre</label>
-                <select id="genreKey" name="genreKey" class="form-control" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } }>
+                <select id="genreKey" name="genreKey" class="form-control" @{if (Model.Completed) { <text> disabled="disabled" </text>  } }>
                     @{
                         foreach (var genre in genreList.OrderByDescending(x => x.IsFiction).ThenBy(x => x.Name))
                         {
                             if (genre.IsFiction)
                             {
-                                if (Model.Book.Genre != null && genre.Key == ((GenreModel)Model.Book.Genre).Key)
+                                if (Model.Genre != null && genre.Key == ((GenreModel)Model.Genre).Key)
                                 {
                                     <option value="@genre.Key" selected="selected">(fiction) @genre.Name</option>
                                 }
@@ -81,7 +80,7 @@
                             }
                             else
                             {
-                                if (Model.Book.Genre != null && genre.Key == ((GenreModel)Model.Book.Genre).Key)
+                                if (Model.Genre != null && genre.Key == ((GenreModel)Model.Genre).Key)
                                 {
                                     <option value="@genre.Key" selected="selected">@genre.Name</option>
                                 }
@@ -96,35 +95,35 @@
             </div>
             <div class="form-group">
                 <label for="Language_Key">Language <i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title data-original-title="The language you will write your book in, also sets the language of the text editor."></i></label><br />
-                @Html.DropDownListFor(m => ((LanguageModel)m.Book.Language).Key, languageList, disabledLanguage)
+                @Html.DropDownListFor(m => ((LanguageModel)m.Language).Key, languageList, disabledLanguage)
             </div>
         </div>
         <div class="col-md-6">
             <label>Cover Art</label><br />
-            <div class="fileinput fileinput-exists" data-provides="fileinput" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } }>
+            <div class="fileinput fileinput-exists" data-provides="fileinput" @{if (Model.Completed) { <text> disabled="disabled" </text>  } }>
                 <div class="fileinput-new thumbnail" style="width: 400px; height: 400px;">
                     <img src="http://www.placehold.it/400x400/EFEFEF/AAAAAA&text=no+image" />
                 </div>
                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 400px; max-height: 400px; line-height: 20px;">
                     @{
-                        if (string.IsNullOrEmpty(Model.Book.CoverArtKey))
+                        if (string.IsNullOrEmpty(Model.CoverArtKey))
                         {
                             <img src="http://www.placehold.it/400x400/EFEFEF/AAAAAA&text=no+image" />
                         }
                         else
                         {
-                            <img src="@Model.Book.CoverArtUri" />
+                            <img src="@Model.CoverArtUri" />
                         }
                     }
                 </div>
                 <div>
-                    <span class="btn btn-primary btn-file" @{if (Model.Book.Completed) { <text> disabled="disabled" </text>  } }>
+                    <span class="btn btn-primary btn-file" @{if (Model.Completed) { <text> disabled="disabled" </text>  } }>
                         <span class="fileinput-new">Upload Cover Art...</span>
                         <span class="fileinput-exists">Change</span>
                         <input id="CoverArt" name="CoverArt" type="file" />
                     </span>
                     @{
-                        if (!Model.Book.Completed)
+                        if (!Model.Completed)
                         {
                             <a href="#" class="btn fileinput-exists" data-dismiss="fileinput">Remove</a>
                         }
@@ -137,10 +136,10 @@
 <div class="row" style="margin-bottom: 10px;">
     <div class="col-md-12">
         <label for="Synopsis">Synopsis <i class="icon-question-sign" data-toggle="tooltip" data-placement="right" title data-original-title="A brief summary of your book."></i></label>
-        @Html.TextAreaFor(m => m.Book.Synopsis, disabledAttributesComplete)
-        <label class="checkbox inline" for="Published">@Html.CheckBoxFor(m => m.Book.Published, disabledAttributesPublic) Public <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check public to allow others to read your work. This is permanent."></i></label>
-        <label class="checkbox inline" for="Completed">@Html.CheckBoxFor(m => m.Book.Completed, disabledAttributesComplete) Complete <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check complete to indicate the work is in its final state, and will no longer be altered. It also allows readers to start leaving reviews. This is permanent."></i></label>
-        <label class="checkbox inline" for="Abandoned">@Html.CheckBoxFor(m => m.Book.Abandoned, disabledAttributesComplete) Abandoned <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check abandoned to to indicate the work will not be finished. This is reversable."></i></label>
+        @Html.TextAreaFor(m => m.Synopsis, disabledAttributesComplete)
+        <label class="checkbox inline" for="Published">@Html.CheckBoxFor(m => m.Published, disabledAttributesPublic) Public <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check public to allow others to read your work. This is permanent."></i></label>
+        <label class="checkbox inline" for="Completed">@Html.CheckBoxFor(m => m.Completed, disabledAttributesComplete) Complete <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check complete to indicate the work is in its final state, and will no longer be altered. It also allows readers to start leaving reviews. This is permanent."></i></label>
+        <label class="checkbox inline" for="Abandoned">@Html.CheckBoxFor(m => m.Abandoned, disabledAttributesComplete) Abandoned <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title data-original-title="Check abandoned to to indicate the work will not be finished. This is reversable."></i></label>
     </div>
 </div>
 

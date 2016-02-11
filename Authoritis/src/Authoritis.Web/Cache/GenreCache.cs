@@ -9,9 +9,14 @@ namespace Authoritis.Web.Cache
         private static readonly MemoryCacheOptions Options = new MemoryCacheOptions(); 
         private static readonly MemoryCache Cache = new MemoryCache(Options);
 
-        private static object GetAll()
+        public static object GetAll()
         {
             return GetOrAddExisting("All", InitItem);
+        }
+
+        public static void RemoveItem()
+        {
+            Cache.Remove("All");
         }
 
         private static T GetOrAddExisting<T>(string key, Func<T> valueFactory)
