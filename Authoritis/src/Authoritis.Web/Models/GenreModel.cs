@@ -1,6 +1,8 @@
-﻿namespace Authoritis.Web.Models
+﻿using Authoritis.Query.Interface.Models;
+
+namespace Authoritis.Web.Models
 {
-    public class GenreModel : Authoritis.Query.Interface.Models.IGenre
+    public class GenreModel : IGenre
     {
         public bool IsFiction { get; set; }
         public string Key { get; set; }

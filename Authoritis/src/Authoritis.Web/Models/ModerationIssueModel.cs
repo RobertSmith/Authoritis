@@ -1,8 +1,9 @@
 ﻿using System;
+using Authoritis.Query.Interface.Models;
 
 namespace Authoritis.Web.Models
 {
-    public class ModerationIssueModel : Query.Interface.Models.IModerationIssue
+    public class ModerationIssueModel : IModerationIssue
     {
         public DateTime ClearedAt { get; set; }
         public DateTime CreatedAt { get; set; }

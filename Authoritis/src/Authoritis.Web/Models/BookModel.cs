@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Authoritis.Query.Interface.Models;
 
 namespace Authoritis.Web.Models
 {
-    public class BookModel : Query.Interface.Models.IBook
+    public class BookModel : IBook
     {
         public bool Abandoned { get; set; }
         public List<Query.Interface.Models.IAuthor> Authors { get; set; }

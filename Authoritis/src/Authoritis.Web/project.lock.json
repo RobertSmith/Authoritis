@@ -2251,7 +2251,7 @@
     "DNXCore,Version=v5.0": {
       "Authoritis.Query.Interface/1.0.0": {
         "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+        "framework": "DNXCore,Version=v5.0",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -9662,7 +9662,7 @@
     "DNXCore,Version=v5.0/win7-x86": {
       "Authoritis.Query.Interface/1.0.0": {
         "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+        "framework": "DNXCore,Version=v5.0",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -13054,7 +13054,7 @@
     "DNXCore,Version=v5.0/win7-x64": {
       "Authoritis.Query.Interface/1.0.0": {
         "type": "project",
-        "framework": ".NETPlatform,Version=v5.4",
+        "framework": "DNXCore,Version=v5.0",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1-beta-23516",
           "System.Collections": "4.0.11-beta-23516",
@@ -19808,7 +19808,7 @@
     },
     "System.IO.Compression/4.0.0-beta-22816": {
       "type": "package",
-      "sha512": "XLIvFYkpjuAHSr9H7mjtv6sfv4kkSAWJ+ysVO4/KzCDRjYqs9Fl50PnuDkOfBJBoIf5BrWY+GF+4xj4WFBHb/Q==",
+      "sha512": "1PWYEebKSpGL9u9j+teLXB+TF5rZcKU/Ys56UL3kaqDGjMwCgG/Dry81Paiz+VRmHnq8DxcRoCF3hUGo2M0FVQ==",
       "files": [
         "lib/aspnetcore50/System.IO.Compression.dll",
         "lib/contract/System.IO.Compression.dll",
